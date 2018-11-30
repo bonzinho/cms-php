@@ -3,7 +3,7 @@
 <form action="" method="POST" >
     <div class="form-group">
         <label for="pagesTitle">Título</label>
-        <input type="text" name="title" id="pageTitle" placeholder="Título da página"  class="form-control" required value="Página inicial">
+        <input type="text" name="title" id="pageTitle" placeholder="Título da página"  class="form-control" required value="<?php echo $data['pages']['title'] ?>">
     </div>
 
     <div class="form-group">
@@ -12,12 +12,12 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">/</span>
             </div>
-            <input type="text" name="url" id="pagesUrl" placeholder="Url amigável" class="form-control" required>
+            <input type="text" name="url" id="pagesUrl" placeholder="Url amigável" class="form-control" required value="<?php echo $data['pages']['url'] ?>">
         </div>
     </div>
 
     <div class="form-group">
-        <input type="hidden" name="body" id="pagesBody" required value="<h3>Página inicial</h3><div>Esta é a página inicial do site</div>">
+        <input type="hidden" name="body" id="pagesBody" required value="<?php echo $data['pages']['body'] ?>">
         <trix-editor input="pagesBody"></trix-editor>
     </div>
 
@@ -26,4 +26,4 @@
 </form>
 <hr>
 
-<a href="/admin/pages/1" class="btn btn-secondary">Voltar</a>
+<a href="/admin/pages/<?php echo $data['pages']['id'] ?>" class="btn btn-secondary">Voltar</a>

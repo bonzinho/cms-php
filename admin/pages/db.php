@@ -21,8 +21,16 @@ $pages_all = function () use($conn){
     return $result->fetch_all(MYSQLI_ASSOC);
 };
 
-$pages_one = function($id){
+$pages_one = function($id) use($conn){
     // Busca uma unica páginas
+    $sql = 'SELECT * FROM pages WHERE id=?';
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+
 };
 
 $pages_create = function () use($conn){
@@ -39,9 +47,19 @@ $pages_create = function () use($conn){
     return $stmt->execute();
 };
 
-$pages_edit = function ($id){
+$pages_edit = function ($id) use($conn){
     // Edita uma página
+    $data = pages_get_data('/admin/pages/' . $id . '/edit');
+
+    $sql = 'UPDATE  pages SET  title=?, body=?, url=?, updated=NOW() WHERE id=?';
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sssi', $data['title'], $data['body'], $data['url'], $data['id']);
+
     flash('Página editada com sucesso', 'success');
+
+    return $stmt->execute();
+
 };
 
 $pages_delete = function ($id){
