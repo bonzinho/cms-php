@@ -5,8 +5,8 @@ function pages_get_data($redirectOnError){
     $url = filter_input(INPUT_POST, 'url');
     $body = filter_input(INPUT_POST, 'body');
 
-    if(is_null($title) or is_null($url)){
-        flash('Informar os campos de título e url', 'error');
+    if(!$title){
+        flash('Adicione um titulo', 'error');
         header('location: ' . $redirectOnError);  // enviar par a página anterior
         die();
     }
@@ -54,7 +54,7 @@ $pages_edit = function ($id) use($conn){
     $sql = 'UPDATE  pages SET  title=?, body=?, url=?, updated=NOW() WHERE id=?';
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param('sssi', $data['title'], $data['body'], $data['url'], $data['id']);
+    $stmt->bind_param('sssi', $data['title'], $data['body'], $data['url'], $id);
 
     flash('Página editada com sucesso', 'success');
 
@@ -62,8 +62,18 @@ $pages_edit = function ($id) use($conn){
 
 };
 
-$pages_delete = function ($id){
+$pages_delete = function ($id) use($conn){
     // Remove uma página
+
+    // $data = pages_get_data('/admin/pages/delete');
+
+    $sql = 'DELETE FROM pages WHERE id=?';
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
+
     flash('Página apagada com sucesso', 'success');
+
+    return $stmt->execute();
 };
 
