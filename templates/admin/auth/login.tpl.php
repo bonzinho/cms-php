@@ -2,7 +2,7 @@
     <div class="card-body">
         <h5 class="card-title">Autenticação</h5>
 
-        <form action="post">
+        <form method="post">
             <div class="form-group">
                 <label for="authLogin">Email</label>
                 <input type="email" name="email" id="authLogin" placeholder="Endereço de email" class="form-control">
@@ -10,7 +10,7 @@
 
             <div class="form-group">
                 <label for="authPassword">Email</label>
-                <input type="password" name="senha" id="authPassword" placeholder="Senha de Acesso" class="form-control">
+                <input type="password" name="password" id="authPassword" placeholder="Senha de Acesso" class="form-control">
             </div>
 
             <input type="submit" value="Entrar" class="btn btn-primary">
